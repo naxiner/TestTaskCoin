@@ -1,0 +1,114 @@
+﻿<Page x:Class="TestTaskCoin.MVVM.Views.MainPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      mc:Ignorable="d" 
+      Title="MainPage">
+
+    <Grid Margin="10,0,10,0">
+        <Grid.RowDefinitions>
+            <!-- Header -->
+            <RowDefinition Height="Auto" />
+            <!-- Table -->
+            <RowDefinition Height="336" />
+            <!-- Refresh Button -->
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <!-- Header -->
+        <TextBlock Text="Top 10 Cryptocurrencies" FontSize="20" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,0,0,10" />
+
+        <!-- Table -->
+        <Border Grid.Row="1" BorderBrush="Black" BorderThickness="1" CornerRadius="10">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <!-- Header -->
+                    <RowDefinition Height="Auto" />
+                    <!-- Rows -->
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <!-- Table Header -->
+                <Grid Grid.Row="0" Background="LightGray">
+                    <Grid.ColumnDefinitions>
+                        <!-- Number -->
+                        <ColumnDefinition Width="50" />
+                        <!-- Name -->
+                        <ColumnDefinition Width="200" />
+                        <!-- Symbol -->
+                        <ColumnDefinition Width="100" />
+                        <!-- Price -->
+                        <ColumnDefinition Width="100" />
+                        <!-- ChangePercent24Hr -->
+                        <ColumnDefinition Width="150" />
+                        <!-- Buttons -->
+                        <ColumnDefinition Width="150" />
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Text="№" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5" />
+                    <TextBlock Text="Name" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,5" />
+                    <TextBlock Text="Symbol" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5" />
+                    <TextBlock Text="Price (USD)" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5" />
+                    <TextBlock Text="Change 24 hrs" Grid.Column="4" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5" />
+                </Grid>
+
+                <!-- Data -->
+                <ItemsControl Grid.Row="1" ItemsSource="{Binding Cryptocurrencies}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Orientation="Vertical" />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Border BorderBrush="Gray" BorderThickness="0,0,0,1">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <!-- Number -->
+                                        <ColumnDefinition Width="50" />
+                                        <!-- Name -->
+                                        <ColumnDefinition Width="200" />
+                                        <!-- Symbol -->
+                                        <ColumnDefinition Width="100" />
+                                        <!-- Price -->
+                                        <ColumnDefinition Width="100" />
+                                        <!-- ChangePercent24Hr -->
+                                        <ColumnDefinition Width="150" />
+                                        <!-- Buttons -->
+                                        <ColumnDefinition Width="150" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <!-- Number -->
+                                    <TextBlock Text="{Binding Rank}" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5" />
+
+                                    <!-- Name -->
+                                    <TextBlock Text="{Binding Name}" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,5" />
+
+                                    <!-- Symbol -->
+                                    <TextBlock Text="{Binding Symbol}" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5" />
+
+                                    <!-- Price -->
+                                    <TextBlock Text="{Binding PriceUsd, StringFormat={}{0:N2}}" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5" />
+
+                                    <!-- ChangePercent24Hr -->
+                                    <TextBlock Text="{Binding ChangePercent24Hr, StringFormat={}{0:N2}%}" Grid.Column="4" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5" />
+
+                                    <!-- Buttons -->
+                                    <StackPanel Orientation="Horizontal" Grid.Column="5" HorizontalAlignment="Center">
+                                        <Button Content="📈" Width="30" Height="30" Margin="5,0" />
+                                        <Button Content="📋" Width="30" Height="30" Margin="5,0" />
+                                    </StackPanel>
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </Grid>
+        </Border>
+
+        <!-- Refresh Button -->
+        <Button Content="Refresh data" Grid.Row="2" HorizontalAlignment="Right" Padding="10,5"
+                Command="{Binding RefreshCommand}" Margin="0,10,0,10" />
+    </Grid>
+</Page>
