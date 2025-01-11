@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using TestTaskCoin.Core;
 using TestTaskCoin.MVVM.Models;
+using TestTaskCoin.MVVM.Views;
 using TestTaskCoin.Services;
 
 namespace TestTaskCoin.MVVM.ViewModels
@@ -10,7 +11,8 @@ namespace TestTaskCoin.MVVM.ViewModels
     {
         private readonly ICoinCapService _coinCapService;
         private ObservableCollection<CryptoCurrency> _cryptocurrencies;
-        public RelayCommand RefreshCommand { get; }
+        public RelayCommand<CryptoCurrency> NavigateToDetailsCommand { get; }
+        public RelayCommand<object> RefreshCommand { get; }
 
         public ObservableCollection<CryptoCurrency> Cryptocurrencies
         {
@@ -22,8 +24,17 @@ namespace TestTaskCoin.MVVM.ViewModels
         {
             _coinCapService = coinCapService;
             Cryptocurrencies = new ObservableCollection<CryptoCurrency>();
-            RefreshCommand = new RelayCommand(async () => await RefreshDataAsync());
+            NavigateToDetailsCommand = new RelayCommand<CryptoCurrency>(NavigateToDetails);
+            RefreshCommand = new RelayCommand<object>(async _ => await RefreshDataAsync());
             _ = RefreshDataAsync();
+        }
+
+        private void NavigateToDetails(CryptoCurrency crypto)
+        {
+            var detailsPage = new DetailsPage();
+            var detailsViewModel = new DetailsViewModel(crypto);
+            detailsPage.DataContext = detailsViewModel;
+            NavigationService.NavigateToPage(detailsPage);
         }
 
         private async Task RefreshDataAsync()

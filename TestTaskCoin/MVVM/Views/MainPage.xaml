@@ -50,7 +50,7 @@
                     <TextBlock Text="Name" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,5" />
                     <TextBlock Text="Symbol" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5" />
                     <TextBlock Text="Price (USD)" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5" />
-                    <TextBlock Text="Change 24 hrs" Grid.Column="4" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5" />
+                    <TextBlock Text="24 Change" Grid.Column="4" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5" />
                 </Grid>
 
                 <!-- Data -->
@@ -96,7 +96,10 @@
 
                                     <!-- Buttons -->
                                     <StackPanel Orientation="Horizontal" Grid.Column="5" HorizontalAlignment="Center">
-                                        <Button Content="📈" Width="30" Height="30" Margin="5,0" />
+                                        <Button Content="📈" Width="30" Height="30" Margin="5,0" 
+                                                Command="{Binding DataContext.NavigateToDetailsCommand, 
+                                                          RelativeSource={RelativeSource AncestorType=Page}}"
+                                                CommandParameter="{Binding}"/>
                                         <Button Content="📋" Width="30" Height="30" Margin="5,0" />
                                     </StackPanel>
                                 </Grid>

@@ -1,4 +1,6 @@
 ﻿using System.Windows;
+using TestTaskCoin.MVVM.Views;
+using TestTaskCoin.Services;
 
 namespace TestTaskCoin
 {
@@ -7,6 +9,8 @@ namespace TestTaskCoin
         public MainWindow()
         {
             InitializeComponent();
+            NavigationService.Initialize(MainFrame);
+            MainFrame.Navigate(new MainPage());
         }
     }
 }

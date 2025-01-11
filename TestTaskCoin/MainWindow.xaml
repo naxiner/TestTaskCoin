@@ -6,5 +6,5 @@
         xmlns:local="clr-namespace:TestTaskCoin"
         mc:Ignorable="d"
         Title="MainWindow" Height="460" Width="800">
-    <Frame Source="MVVM/Views/MainPage.xaml" />
+    <Frame x:Name="MainFrame" NavigationUIVisibility="Hidden"/>
 </Window>
