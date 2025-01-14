@@ -17,13 +17,21 @@ namespace TestTaskCoin.Services
             _httpClient = new HttpClient();
         }
 
-        public async Task<List<CryptoCurrency>> GetTopCryptoCurrenciesAsync()
+        public async Task<List<CryptoCurrency>> GetCryptoCurrenciesAsync(int limit)
         {
-            var url = $"{ApiConstants.BaseUrl}assets?limit=10";
+            if (limit < 0 || limit > 2000)
+            {
+                throw new Exception("Limit for receiving cryptocurrencies " +
+                    "should be in range of 0-2000.");
+            }
+
+            var url = $"{ApiConstants.BaseUrl}assets?limit={limit}";
             var response = await _httpClient.GetAsync(url);
 
             if (!response.IsSuccessStatusCode)
+            {
                 throw new Exception("Failed to fetch data from API.");
+            }
 
             var json = await response.Content.ReadAsStringAsync();
             var result = JsonConvert.DeserializeObject<TopCryptoCurrenciesResponse>(json);

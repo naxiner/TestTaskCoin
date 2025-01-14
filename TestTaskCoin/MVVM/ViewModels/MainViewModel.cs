@@ -12,6 +12,7 @@ namespace TestTaskCoin.MVVM.ViewModels
         private readonly ICoinCapService _coinCapService;
         private ObservableCollection<CryptoCurrency> _cryptocurrencies;
         public RelayCommand<CryptoCurrency> NavigateToDetailsCommand { get; }
+        public RelayCommand<object> NavigateToSearchCommand { get; }
         public RelayCommand<object> RefreshCommand { get; }
 
         public ObservableCollection<CryptoCurrency> Cryptocurrencies
@@ -20,13 +21,15 @@ namespace TestTaskCoin.MVVM.ViewModels
             set => SetProperty(ref _cryptocurrencies, value);
         }
 
-        public MainViewModel(ICoinCapService coinCapService)
+        public MainViewModel(ICoinCapService coinCapService, int limitOfCryptocurrencies = 10)
         {
             _coinCapService = coinCapService;
             Cryptocurrencies = new ObservableCollection<CryptoCurrency>();
             NavigateToDetailsCommand = new RelayCommand<CryptoCurrency>(NavigateToDetails);
-            RefreshCommand = new RelayCommand<object>(async _ => await RefreshDataAsync());
-            _ = RefreshDataAsync();
+            NavigateToSearchCommand = new RelayCommand<object>(_ => NavigateToSearch());
+            RefreshCommand = new RelayCommand<object>(async _ =>
+                await RefreshDataAsync(limitOfCryptocurrencies));
+            _ = RefreshDataAsync(limitOfCryptocurrencies);
         }
 
         private void NavigateToDetails(CryptoCurrency crypto)
@@ -37,13 +40,21 @@ namespace TestTaskCoin.MVVM.ViewModels
             NavigationService.NavigateToPage(detailsPage);
         }
 
-        private async Task RefreshDataAsync()
+        private void NavigateToSearch()
+        {
+            var searchPage = new SearchPage();
+            var searchViewModel = new SearchViewModel(_coinCapService);
+            searchPage.DataContext = searchViewModel;
+            NavigationService.NavigateToPage(searchPage);
+        }
+
+        private async Task RefreshDataAsync(int limit)
         {
             IsBusy = true;
 
             try
             {
-                var data = await _coinCapService.GetTopCryptoCurrenciesAsync();
+                var data = await _coinCapService.GetCryptoCurrenciesAsync(limit);
                 Cryptocurrencies.Clear();
                 foreach (var crypto in data)
                 {

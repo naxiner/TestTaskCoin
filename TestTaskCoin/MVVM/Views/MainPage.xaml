@@ -3,7 +3,8 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      mc:Ignorable="d" 
+      mc:Ignorable="d"
+      d:DesignHeight="460" d:DesignWidth="800"
       Title="MainPage">
 
     <Grid Background="White" Margin="10,0,10,0">
@@ -111,7 +112,11 @@
         </Border>
 
         <!-- Refresh Button -->
+        
         <Button Content="Refresh data" Grid.Row="2" HorizontalAlignment="Right" Padding="10,5"
                 Command="{Binding RefreshCommand}" Margin="0,10,0,10" />
+
+        <Button Content="Search" Grid.Row="3" HorizontalAlignment="Right" Padding="10,5"
+            Command="{Binding NavigateToSearchCommand}" Margin="0,10,100,10" />
     </Grid>
 </Page>

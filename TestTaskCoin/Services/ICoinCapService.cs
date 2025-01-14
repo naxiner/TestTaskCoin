@@ -7,6 +7,6 @@ namespace TestTaskCoin.Services
     public interface ICoinCapService
     {
         Task<List<Market>> GetMarketsByIdAsync(string baseId);
-        Task<List<CryptoCurrency>> GetTopCryptoCurrenciesAsync();
+        Task<List<CryptoCurrency>> GetCryptoCurrenciesAsync(int limit);
     }
 }
