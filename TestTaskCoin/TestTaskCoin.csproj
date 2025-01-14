@@ -61,6 +61,8 @@
     <Compile Include="Constants\ApiConstants.cs" />
     <Compile Include="Core\RelayCommand.cs" />
     <Compile Include="MVVM\Models\CryptoCurrency.cs" />
+    <Compile Include="MVVM\Models\Market.cs" />
+    <Compile Include="MVVM\Models\MarketsResponse.cs" />
     <Compile Include="MVVM\Models\TopCryptoCurrenciesResponse.cs" />
     <Compile Include="MVVM\ViewModels\BaseViewModel.cs" />
     <Compile Include="MVVM\ViewModels\DetailsViewModel.cs" />

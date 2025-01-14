@@ -32,7 +32,7 @@ namespace TestTaskCoin.MVVM.ViewModels
         private void NavigateToDetails(CryptoCurrency crypto)
         {
             var detailsPage = new DetailsPage();
-            var detailsViewModel = new DetailsViewModel(crypto);
+            var detailsViewModel = new DetailsViewModel(_coinCapService, crypto);
             detailsPage.DataContext = detailsViewModel;
             NavigationService.NavigateToPage(detailsPage);
         }
