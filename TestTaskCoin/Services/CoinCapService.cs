@@ -30,5 +30,19 @@ namespace TestTaskCoin.Services
 
             return result?.Data ?? new List<CryptoCurrency>();
         }
+
+        public async Task<List<Market>> GetMarketsByIdAsync(string baseId)
+        {
+            var url = $"{ApiConstants.BaseUrl}assets/{baseId.ToLower()}/markets";
+            var response = await _httpClient.GetAsync(url);
+
+            if (!response.IsSuccessStatusCode)
+                throw new Exception("Failed to fetch data from API.");
+
+            var json = await response.Content.ReadAsStringAsync();
+            var result = JsonConvert.DeserializeObject<MarketsResponse>(json);
+
+            return result?.Data ?? new List<Market>();
+        }
     }
 }
