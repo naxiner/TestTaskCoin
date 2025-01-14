@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using TestTaskCoin.Core;
 using TestTaskCoin.MVVM.Models;
+using TestTaskCoin.MVVM.Views;
 using TestTaskCoin.Services;
 
 namespace TestTaskCoin.MVVM.ViewModels
@@ -17,6 +18,7 @@ namespace TestTaskCoin.MVVM.ViewModels
         private bool _isBusy;
         public RelayCommand<string> SearchCommand { get; }
         public RelayCommand<object> RefreshCommand { get; }
+
 
         public ObservableCollection<CryptoCurrency> Cryptocurrencies
         {
@@ -63,6 +65,14 @@ namespace TestTaskCoin.MVVM.ViewModels
             _ = RefreshDataAsync(limitOfCryptocurrencies);
         }
 
+        private void NavigateToDetails(CryptoCurrency crypto)
+        {
+            var detailsPage = new DetailsPage();
+            var detailsViewModel = new DetailsViewModel(_coinCapService, crypto);
+            detailsPage.DataContext = detailsViewModel;
+            NavigationService.NavigateToPage(detailsPage);
+        }
+
         private async Task RefreshDataAsync(int limit)
         {
             IsBusy = true;
@@ -93,6 +103,11 @@ namespace TestTaskCoin.MVVM.ViewModels
                 (int.TryParse(searchQuery, out int rank) && c.Rank == rank) ||
                 c.Symbol.Equals(searchQuery, StringComparison.OrdinalIgnoreCase) ||
                 c.Name.Equals(searchQuery, StringComparison.OrdinalIgnoreCase));
+
+            if (FoundCryptoCurrency != null)
+            {
+                NavigateToDetails(FoundCryptoCurrency);
+            }
         }
     }
 }
