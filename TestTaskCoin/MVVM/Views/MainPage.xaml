@@ -6,7 +6,7 @@
       mc:Ignorable="d" 
       Title="MainPage">
 
-    <Grid Margin="10,0,10,0">
+    <Grid Background="White" Margin="10,0,10,0">
         <Grid.RowDefinitions>
             <!-- Header -->
             <RowDefinition Height="Auto" />
