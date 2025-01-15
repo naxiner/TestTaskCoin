@@ -6,5 +6,60 @@
         xmlns:local="clr-namespace:TestTaskCoin"
         mc:Ignorable="d"
         Title="MainWindow" Height="460" Width="800">
-    <Frame x:Name="MainFrame" NavigationUIVisibility="Hidden"/>
+
+    <Window.Resources>
+        <Storyboard x:Key="MenuOpen">
+            <DoubleAnimation Storyboard.TargetName="MenuPanel" Storyboard.TargetProperty="Width" From="0" To="200" Duration="0:0:0.2"/>
+        </Storyboard>
+        <Storyboard x:Key="MenuClose">
+            <DoubleAnimation Storyboard.TargetName="MenuPanel" Storyboard.TargetProperty="Width" From="200" To="0" Duration="0:0:0.2"/>
+        </Storyboard>
+
+        <Style x:Key="MenuButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Height" Value="40"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" BorderThickness="0" CornerRadius="5">
+                            <ContentPresenter HorizontalAlignment="Left" VerticalAlignment="Center" Margin="15,0,0,0"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#4C4C4C"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+
+    <Grid>
+        <Rectangle x:Name="DarkOverlay" Fill="Black" Opacity="0" MouseDown="DarkOverlay_MouseDown">
+            <Rectangle.Style>
+                <Style TargetType="Rectangle">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding ElementName=MenuPanel, Path=Width}" Value="200">
+                            <Setter Property="Opacity" Value="0.5"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Rectangle.Style>
+        </Rectangle>
+
+        <Frame x:Name="MainFrame" NavigationUIVisibility="Hidden"/>
+
+        <Button x:Name="MenuButton" Content="☰" Margin="10, 5, 0, 0" FontSize="14" Width="25" Height="25" HorizontalAlignment="Left"
+                VerticalAlignment="Top" Click="MenuButton_Click" Panel.ZIndex="1"/>
+
+        <Grid x:Name="MenuPanel" Width="0" HorizontalAlignment="Left" Background="DimGray">
+            <StackPanel Margin="0,60,0,0">
+                <Button Content="Main Page" Style="{StaticResource MenuButtonStyle}" Click="NavigateToMain_Click"/>
+                <Button Content="Search" Style="{StaticResource MenuButtonStyle}" Click="NavigateToSearch_Click"/>
+            </StackPanel>
+        </Grid>
+    </Grid>
 </Window>
