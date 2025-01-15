@@ -67,11 +67,15 @@
     <Compile Include="MVVM\ViewModels\BaseViewModel.cs" />
     <Compile Include="MVVM\ViewModels\DetailsViewModel.cs" />
     <Compile Include="MVVM\ViewModels\SearchViewModel.cs" />
+    <Compile Include="MVVM\ViewModels\TopListViewModel.cs" />
     <Compile Include="MVVM\Views\DetailsPage.xaml.cs">
       <DependentUpon>DetailsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="MVVM\Views\SearchPage.xaml.cs">
       <DependentUpon>SearchPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MVVM\Views\TopListPage.xaml.cs">
+      <DependentUpon>TopListPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Services\CoinCapService.cs" />
     <Compile Include="Services\ICoinCapService.cs" />
@@ -97,6 +101,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="MVVM\Views\SearchPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MVVM\Views\TopListPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

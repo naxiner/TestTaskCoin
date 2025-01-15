@@ -57,7 +57,8 @@
 
         <Grid x:Name="MenuPanel" Width="0" HorizontalAlignment="Left" Background="DimGray">
             <StackPanel Margin="0,60,0,0">
-                <Button Content="Main Page" Style="{StaticResource MenuButtonStyle}" Click="NavigateToMain_Click"/>
+                <Button Content="Main" Style="{StaticResource MenuButtonStyle}" Click="NavigateToMain_Click"/>
+                <Button Content="Top List" Style="{StaticResource MenuButtonStyle}" Click="NavigateToTopList_Click"/>
                 <Button Content="Search" Style="{StaticResource MenuButtonStyle}" Click="NavigateToSearch_Click"/>
             </StackPanel>
         </Grid>

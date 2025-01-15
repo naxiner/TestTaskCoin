@@ -40,6 +40,12 @@ namespace TestTaskCoin
             CloseMenu();
         }
 
+        private void NavigateToTopList_Click(object sender, RoutedEventArgs e)
+        {
+            MainFrame.Navigate(new TopListPage());
+            CloseMenu();
+        }
+
         private void NavigateToSearch_Click(object sender, RoutedEventArgs e)
         {
             MainFrame.Navigate(new SearchPage());
