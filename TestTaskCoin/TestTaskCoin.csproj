@@ -66,8 +66,12 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Constants\ApiConstants.cs" />
+    <Compile Include="Enums\HistoryInterval.cs" />
     <Compile Include="Core\RelayCommand.cs" />
     <Compile Include="MVVM\Models\CryptoCurrency.cs" />
+    <Compile Include="MVVM\Models\History.cs" />
+    <Compile Include="MVVM\Models\HistoryRequest.cs" />
+    <Compile Include="MVVM\Models\HistoryResponse.cs" />
     <Compile Include="MVVM\Models\Market.cs" />
     <Compile Include="MVVM\Models\MarketsResponse.cs" />
     <Compile Include="MVVM\Models\TopCryptoCurrenciesResponse.cs" />
