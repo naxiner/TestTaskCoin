@@ -19,7 +19,6 @@ namespace TestTaskCoin.MVVM.ViewModels
         public RelayCommand<string> SearchCommand { get; }
         public RelayCommand<object> RefreshCommand { get; }
 
-
         public ObservableCollection<CryptoCurrency> Cryptocurrencies
         {
             get => _cryptocurrencies;

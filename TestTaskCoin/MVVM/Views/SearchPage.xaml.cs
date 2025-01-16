@@ -1,4 +1,6 @@
 ﻿using System.Windows.Controls;
+using TestTaskCoin.MVVM.ViewModels;
+using TestTaskCoin.Services;
 
 namespace TestTaskCoin.MVVM.Views
 {
@@ -7,6 +9,7 @@ namespace TestTaskCoin.MVVM.Views
         public SearchPage()
         {
             InitializeComponent();
+            DataContext = new SearchViewModel(new CoinCapService());
         }
     }
 }
