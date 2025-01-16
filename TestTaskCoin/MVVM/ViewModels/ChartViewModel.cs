@@ -17,6 +17,9 @@ namespace TestTaskCoin.MVVM.ViewModels
         private ObservableCollection<History> _history;
         private bool _isBusy;
         public RelayCommand<object> RefreshDataCommand { get; }
+        public RelayCommand<object> DayCommand { get; }
+        public RelayCommand<object> WeekCommand { get; }
+        public RelayCommand<object> MonthCommand { get; }
         public string SelectedCryptocurrencyId { get; }
         public SeriesCollection SeriesCollection { get; set; }
         public string[] Labels { get; set; }
@@ -45,14 +48,26 @@ namespace TestTaskCoin.MVVM.ViewModels
             History = new ObservableCollection<History>();
             SelectedCryptocurrencyId = id;
             SeriesCollection = new SeriesCollection();
-            HistoryRequest request = new HistoryRequest()
+
+            RefreshDataCommand = new RelayCommand<object>(async _ =>await LoadPeriodData(HistoryInterval.H1));
+            DayCommand = new RelayCommand<object>(async _ => await LoadPeriodData(HistoryInterval.H1));
+            WeekCommand = new RelayCommand<object>(async _ => await LoadPeriodData(HistoryInterval.H6));
+            MonthCommand = new RelayCommand<object>(async _ => await LoadPeriodData(HistoryInterval.D1));
+
+            _ = LoadPeriodData(HistoryInterval.M30);
+        }
+
+        private async Task LoadPeriodData(HistoryInterval interval)
+        {
+            var (start, end) = GetStartAndEndTimestamps(interval);
+            var request = new HistoryRequest
             {
                 Id = SelectedCryptocurrencyId,
-                Interval = HistoryInterval.D1
+                Interval = interval,
+                Start = start,
+                End = end
             };
-            RefreshDataCommand = new RelayCommand<object>(async _ =>
-                await RefreshDataAsync(request));
-            _ = RefreshDataAsync(request);
+            await RefreshDataAsync(request);
         }
 
         private async Task RefreshDataAsync(HistoryRequest request)
@@ -87,6 +102,35 @@ namespace TestTaskCoin.MVVM.ViewModels
 
             YFormatter = value => value.ToString("N2") + "$";
             Labels = _history.Select(c => c.Date.ToString()).ToArray();
+
+            OnPropertyChanged(nameof(SeriesCollection));
+            OnPropertyChanged(nameof(Labels));
+        }
+
+        private (long start, long end) GetStartAndEndTimestamps(HistoryInterval interval)
+        {
+            var now = DateTime.UtcNow;
+            DateTime start;
+
+            switch (interval)
+            {
+                case HistoryInterval.H1:
+                    start = now.AddDays(-1);
+                    break;
+                case HistoryInterval.H6:
+                    start = now.AddDays(-7);
+                    break;
+                case HistoryInterval.D1:
+                    start = now.AddDays(-30);
+                    break;
+                default:
+                    start = now.AddDays(-1);
+                    break;
+            }
+
+            long startTimestamp = new DateTimeOffset(start).ToUnixTimeMilliseconds();
+            long endTimestamp = new DateTimeOffset(now).ToUnixTimeMilliseconds();
+            return (startTimestamp, endTimestamp);
         }
     }
 }
