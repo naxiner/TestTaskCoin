@@ -8,5 +8,6 @@ namespace TestTaskCoin.Services
     {
         Task<List<Market>> GetMarketsByIdAsync(string baseId);
         Task<List<CryptoCurrency>> GetCryptoCurrenciesAsync(int limit);
+        Task<List<History>> GetHistoryByIdAsync(HistoryRequest request);
     }
 }

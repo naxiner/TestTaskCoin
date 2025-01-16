@@ -30,7 +30,7 @@ namespace TestTaskCoin.Services
 
             if (!response.IsSuccessStatusCode)
             {
-                throw new Exception("Failed to fetch data from API.");
+                throw new Exception("Failed to fetch Cryptocurrency data from API.");
             }
 
             var json = await response.Content.ReadAsStringAsync();
@@ -45,12 +45,33 @@ namespace TestTaskCoin.Services
             var response = await _httpClient.GetAsync(url);
 
             if (!response.IsSuccessStatusCode)
-                throw new Exception("Failed to fetch data from API.");
+                throw new Exception("Failed to fetch Markets data from API.");
 
             var json = await response.Content.ReadAsStringAsync();
             var result = JsonConvert.DeserializeObject<MarketsResponse>(json);
 
             return result?.Data ?? new List<Market>();
+        }
+
+        public async Task<List<History>> GetHistoryByIdAsync(HistoryRequest request)
+        {
+            var url = $"{ApiConstants.BaseUrl}assets/" +
+                $"{request.Id.ToLower()}/history?interval={request.Interval.ToString().ToLower()}";
+
+            if (request.Start != null && request.End != null)
+            {
+                url += $"&start={request.Start}&end={request.End}";
+            }
+
+            var response = await _httpClient.GetAsync(url);
+
+            if (!response.IsSuccessStatusCode)
+                throw new Exception("Failed to fetch History data from API.");
+
+            var json = await response.Content.ReadAsStringAsync();
+            var result = JsonConvert.DeserializeObject<HistoryResponse>(json);
+
+            return result?.Data ?? new List<History>();
         }
     }
 }
