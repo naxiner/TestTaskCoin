@@ -24,9 +24,7 @@
         <Border Grid.Row="1" BorderBrush="Black" BorderThickness="1" CornerRadius="10">
             <Grid>
                 <Grid.RowDefinitions>
-                    <!-- Header -->
                     <RowDefinition Height="Auto" />
-                    <!-- Rows -->
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
 

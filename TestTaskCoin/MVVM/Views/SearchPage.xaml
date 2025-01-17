@@ -46,6 +46,6 @@
         </Border>
 
         <!-- Buttons -->
-        <Button Grid.Row="2" Content="Back" Margin="0,10,0,0" HorizontalAlignment="Left" Padding="10,5"/>
+        <Button Grid.Row="2" Command="{Binding GoBackCommand}" Content="Back" Margin="0,10,0,0" HorizontalAlignment="Left" Padding="10,5"/>
     </Grid>
 </Page>

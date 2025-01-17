@@ -9,15 +9,18 @@
 
     <Grid Background="White" Margin="10,0,10,0">
         <Grid.RowDefinitions>
+            <!-- Header -->
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
+            <!-- Table -->
+            <RowDefinition Height="336" />
+            <!-- Buttons -->
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
         <!-- Header -->
-        <TextBlock Text="All List Cryptocurrencies" FontSize="20" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,0,0,10" />
+        <TextBlock Grid.Row="0" Text="All List Cryptocurrencies" FontSize="20" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,0,0,10" />
 
-        <!-- Table with ScrollViewer -->
+        <!-- Table -->
         <Border Grid.Row="1" BorderBrush="Black" BorderThickness="1" CornerRadius="10">
             <Grid>
                 <Grid.RowDefinitions>
@@ -25,14 +28,20 @@
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
 
-                <!-- Fixed Header -->
+                <!-- Table Header -->
                 <Grid Grid.Row="0" Background="LightGray">
                     <Grid.ColumnDefinitions>
+                        <!-- Number -->
                         <ColumnDefinition Width="50" />
+                        <!-- Name -->
                         <ColumnDefinition Width="200" />
+                        <!-- Symbol -->
                         <ColumnDefinition Width="100" />
+                        <!-- Price -->
                         <ColumnDefinition Width="100" />
+                        <!-- ChangePercent24Hr -->
                         <ColumnDefinition Width="150" />
+                        <!-- Buttons -->
                         <ColumnDefinition Width="150" />
                     </Grid.ColumnDefinitions>
 
@@ -43,7 +52,7 @@
                     <TextBlock Text="24 Change" Grid.Column="4" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5" />
                 </Grid>
 
-                <!-- Scrollable Content -->
+                <!-- Data -->
                 <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
                     <ItemsControl ItemsSource="{Binding Cryptocurrencies}">
                         <ItemsControl.ItemsPanel>
@@ -56,19 +65,36 @@
                                 <Border BorderBrush="Gray" BorderThickness="0,0,0,1">
                                     <Grid>
                                         <Grid.ColumnDefinitions>
+                                            <!-- Number -->
                                             <ColumnDefinition Width="50" />
+                                            <!-- Name -->
                                             <ColumnDefinition Width="200" />
+                                            <!-- Symbol -->
                                             <ColumnDefinition Width="100" />
+                                            <!-- Price -->
                                             <ColumnDefinition Width="100" />
+                                            <!-- ChangePercent24Hr -->
                                             <ColumnDefinition Width="150" />
+                                            <!-- Buttons -->
                                             <ColumnDefinition Width="150" />
                                         </Grid.ColumnDefinitions>
 
+                                        <!-- Number -->
                                         <TextBlock Text="{Binding Rank}" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5" />
+
+                                        <!-- Name -->
                                         <TextBlock Text="{Binding Name}" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,5" />
+
+                                        <!-- Symbol -->
                                         <TextBlock Text="{Binding Symbol}" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5" />
+
+                                        <!-- Price -->
                                         <TextBlock Text="{Binding PriceUsd, StringFormat={}{0:N2}}" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5" />
+
+                                        <!-- ChangePercent24Hr -->
                                         <TextBlock Text="{Binding ChangePercent24Hr, StringFormat={}{0:N2}%}" Grid.Column="4" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5" />
+
+                                        <!-- Buttons -->
                                         <StackPanel Orientation="Horizontal" Grid.Column="5" HorizontalAlignment="Center">
                                             <Button Content="📈" Width="30" Height="30" Margin="5,0" 
                                                     Command="{Binding DataContext.NavigateToDetailsCommand, 
@@ -85,11 +111,16 @@
             </Grid>
         </Border>
 
-        <!-- Refresh Button -->
-        <Button Grid.Row="2" Content="Refresh data" 
-                HorizontalAlignment="Right" 
-                Padding="10,5"
-                Command="{Binding RefreshCommand}" 
-                Margin="0,10,0,10" />
+        <!-- Buttons -->
+        <Grid Grid.Row="2" Margin="0,10,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Button Grid.Column="0" Command="{Binding GoBackCommand}" Content="Back" HorizontalAlignment="Left" Padding="10,5"/>
+            <Button Grid.Column="1" Content="Refresh data" HorizontalAlignment="Right" Padding="10,5"
+                Command="{Binding RefreshCommand}"/>
+        </Grid>
     </Grid>
 </Page>
