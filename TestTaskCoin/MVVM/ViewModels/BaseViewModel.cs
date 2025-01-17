@@ -1,12 +1,30 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using TestTaskCoin.Core;
+using TestTaskCoin.Services;
 
 namespace TestTaskCoin.MVVM.ViewModels
 {
     public class BaseViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
+        public RelayCommand<object> GoBackCommand { get; }
+
+        public BaseViewModel()
+        {
+            GoBackCommand = new RelayCommand<object>(ExecuteGoBack, CanExecuteGoBack);
+        }
+
+        private void ExecuteGoBack(object param)
+        {
+            NavigationService.GoBack();
+        }
+
+        private bool CanExecuteGoBack(object param)
+        {
+            return NavigationService.CanGoBack();
+        }
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
