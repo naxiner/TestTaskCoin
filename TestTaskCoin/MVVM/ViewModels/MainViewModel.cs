@@ -1,5 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.Threading.Tasks;
+using System.Windows;
 using TestTaskCoin.Core;
 using TestTaskCoin.MVVM.Models;
 using TestTaskCoin.MVVM.Views;
@@ -14,6 +15,7 @@ namespace TestTaskCoin.MVVM.ViewModels
         private bool _isBusy;
         public RelayCommand<CryptoCurrency> NavigateToDetailsCommand { get; }
         public RelayCommand<object> RefreshCommand { get; }
+        public RelayCommand<CryptoCurrency> CopyToClipboardCommand { get; }
 
         public ObservableCollection<CryptoCurrency> Cryptocurrencies
         {
@@ -39,6 +41,7 @@ namespace TestTaskCoin.MVVM.ViewModels
             NavigateToDetailsCommand = new RelayCommand<CryptoCurrency>(NavigateToDetails);
             RefreshCommand = new RelayCommand<object>(async _ =>
                 await RefreshDataAsync(limitOfCryptocurrencies));
+            CopyToClipboardCommand = new RelayCommand<CryptoCurrency>(CopyToClipBoard);
             _ = RefreshDataAsync(limitOfCryptocurrencies);
         }
 
@@ -66,6 +69,19 @@ namespace TestTaskCoin.MVVM.ViewModels
             finally
             {
                 IsBusy = false;
+            }
+        }
+
+        private void CopyToClipBoard(CryptoCurrency cryptoToCopy)
+        {
+            if (cryptoToCopy != null)
+            {
+                var textToCopy = $"Name: {cryptoToCopy.Name}, " +
+                                 $"Symbol: {cryptoToCopy.Symbol}, " +
+                                 $"Rank: {cryptoToCopy.Rank}, " +
+                                 $"Price (USD): {cryptoToCopy.PriceUsd:N2}$, " +
+                                 $"Change (24Hr): {cryptoToCopy.ChangePercent24Hr:N2}%";
+                Clipboard.SetText(textToCopy);
             }
         }
     }

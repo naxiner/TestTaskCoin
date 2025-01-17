@@ -96,10 +96,11 @@
                                     <!-- Buttons -->
                                     <StackPanel Orientation="Horizontal" Grid.Column="5" HorizontalAlignment="Center">
                                         <Button Content="📈" Width="30" Height="30" Margin="5,0" 
-                                                Command="{Binding DataContext.NavigateToDetailsCommand, 
-                                                          RelativeSource={RelativeSource AncestorType=Page}}"
+                                                Command="{Binding DataContext.NavigateToDetailsCommand,  RelativeSource={RelativeSource AncestorType=Page}}"
                                                 CommandParameter="{Binding}"/>
-                                        <Button Content="📋" Width="30" Height="30" Margin="5,0" />
+                                        <Button Content="📋" Width="30" Height="30" Margin="5,0"
+                                                Command="{Binding DataContext.CopyToClipboardCommand, RelativeSource={RelativeSource AncestorType=Page}}"
+                                                CommandParameter="{Binding}" />
                                     </StackPanel>
                                 </Grid>
                             </Border>
