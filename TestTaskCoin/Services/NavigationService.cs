@@ -15,5 +15,18 @@ namespace TestTaskCoin.Services
         {
             _mainFrame.Navigate(page);
         }
+
+        public static bool CanGoBack()
+        {
+            return _mainFrame.CanGoBack;
+        }
+
+        public static void GoBack()
+        {
+            if (_mainFrame.CanGoBack)
+            {
+                _mainFrame.GoBack();
+            }
+        }
     }
 }
